@@ -1,8 +1,11 @@
 <v-layout>
   <div class="pull-right">
-    <a class="btn btn-primary" v-link="{name: 'post.create'}">
+    <router-link
+      :to="{ name: 'post.create' }"
+      class="btn btn-primary"
+    >
       Create Post
-    </a>
+    </router-link>
   </div>
   <div class="clearfix"></div>
   <br/>
@@ -31,10 +34,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="posts.length === 0">
+        <tr v-if="$store.state.post.all.length === 0">
           <td colspan="4">No posts</td>
         </tr>
-        <tr v-for="post in posts">
+        <tr v-for="post in $store.state.post.all">
           <td>
             {{post.id}}
           </td>
@@ -55,7 +58,7 @@
       <div class="row">
         <div class="col-md-10">
           <v-pagination
-            :pagination="pagination"
+            :pagination="$store.state.post.pagination"
             :switch-function="all"
           ></v-pagination>
         </div>
@@ -64,9 +67,9 @@
             class="form-control"
             v-model="limit"
           >
-            <option>5</option>
-            <option>10</option>
-            <option>15</option>
+            <option :value="5">5</option>
+            <option :value="10">10</option>
+            <option :value="15">15</option>
           </select>
         </div>
       </div>

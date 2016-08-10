@@ -2,14 +2,12 @@ import Vue from 'vue';
 import accountService from './../account';
 import postService from './../post';
 import store from './../../store';
-import { addNotification } from './../../store/modules/notification/actions';
-import { login } from './../../store/modules/auth/actions';
 
 const success = ({ data }) => {
-  login(store, data.token);
+  store.dispatch('login', data.token);
   postService.all();
   accountService.find();
-  addNotification(store, {
+  store.dispatch('addNotification', {
     type: 'success',
     message: 'Login successful!',
   });
@@ -19,7 +17,7 @@ const success = ({ data }) => {
 };
 
 const failed = () => {
-  addNotification(store, {
+  store.dispatch('addNotification', {
     type: 'danger',
     message: 'Login failed!',
   });

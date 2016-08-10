@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-md-3 pull-right">
             <alert
-              v-for="notification in notifications"
+              v-for="notification in $store.state.notifications"
               :style="notification.type"
               :message="notification.message"
               :id="notification.id"
@@ -27,9 +27,8 @@
    *
    * The entry point of the application
    */
-
   import store from './store';
-  import { deleteNotification } from './store/modules/notification/actions';
+  import { router } from './../bootstrap';
   import loader from './utils/loader';
   import postService from './services/post';
   import accountService from './services/account';
@@ -41,25 +40,17 @@
     store,
 
     /**
-     * The Vuex store
+     * The router
      */
-    vuex: {
-      getters: {
-        authenticated: ({ auth }) => auth.authenticated,
-        notifications: ({ notification }) => notification.all,
-      },
-      actions: {
-        deleteNotification,
-      },
-    },
+    router,
 
     /**
      * Fires when the app is loaded
      */
-    ready() {
+    mounted() {
       // If the user is authenticated,
       // fetch the data from the API
-      if (this.authenticated) {
+      if (this.$store.state.auth.authenticated) {
         postService.all();
         accountService.find();
       }

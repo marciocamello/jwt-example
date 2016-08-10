@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import allPosts from './all';
 import store from './../../store';
-import { addNotification } from './../../store/modules/notification/actions';
 
 const success = () => {
   allPosts();
-  addNotification(store, {
+  store.dispatch('addNotification', {
     type: 'success',
     message: 'The post has been created!',
   });
@@ -15,7 +14,7 @@ const success = () => {
 };
 
 const failed = () => {
-  addNotification(store, {
+  store.dispatch('addNotification', {
     type: 'danger',
     message: 'Saving post failed!',
   });

@@ -49,7 +49,7 @@ Vue.http.interceptors.push((request, next) => {
  */
 import VuexRouterSync from 'vuex-router-sync';
 import Store from './app/store';
-Store.dispatch('CHECK_AUTHENTICATION');
+Store.commit('CHECK_AUTHENTICATION');
 
 
 /* ============
@@ -60,21 +60,19 @@ Store.dispatch('CHECK_AUTHENTICATION');
  * to make building Single Page Applications with Vue.js a breeze.
  */
 import VueRouter from 'vue-router';
-import { routes, redirects } from './app/routes';
+import routes from './app/routes';
 Vue.use(VueRouter);
 
-const Router = new VueRouter({
-  hashbang: false,
+const router = new VueRouter({
+  routes,
 });
-Router.map(routes);
-Router.redirect(redirects);
-Router.beforeEach((transition) => {
+router.beforeEach((route, redirect, next) => {
   /*
    * If the user is not authenticated and goes to
    * an authenticated page, redirect to the login page
    */
-  if (transition.to.auth && !Store.state.auth.authenticated) {
-    transition.redirect({
+  if (route.matched.some(m => m.meta.auth) && !Store.state.auth.authenticated) {
+    redirect({
       name: 'login.index',
     });
   }
@@ -83,17 +81,17 @@ Router.beforeEach((transition) => {
    * If the user is authenticated and goes to
    * an guest page, redirect to the dashboard page
    */
-  if (transition.to.guest && Store.state.auth.authenticated) {
-    transition.redirect({
+  if (route.matched.some(m => m.meta.guest) && Store.state.auth.authenticated) {
+    redirect({
       name: 'account.show',
     });
   }
 
-  transition.next();
+  next();
 });
-VuexRouterSync.sync(Store, Router);
+VuexRouterSync.sync(Store, router);
 
-window.router = Router;
+window.router = router;
 
 
 /* ============
@@ -132,5 +130,5 @@ require('./assets/stylus/app.styl');
  * Exports the router
  */
 export {
-  Router,
+  router,
 };

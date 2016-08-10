@@ -5,7 +5,7 @@ import {
 } from './../../mutation-types';
 
 export const mutations = {
-  [FETCH_POSTS](state, posts, pagination) {
+  [FETCH_POSTS](state, { posts, pagination }) {
     state.all = posts;
     state.pagination = pagination;
   },

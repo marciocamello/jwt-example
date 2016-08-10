@@ -8,6 +8,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/logger';
+import * as actions from './actions';
 import auth from './modules/auth';
 import account from './modules/account';
 import notification from './modules/notification';
@@ -15,7 +16,14 @@ import post from './modules/post';
 
 Vue.use(Vuex);
 
+const debug = process.env.NODE_ENV !== 'production';
+
 export default new Vuex.Store({
+  /**
+   * Assign the actions to the store
+   */
+  actions,
+
   /**
    * Assign the modules to the store
    */
@@ -29,10 +37,10 @@ export default new Vuex.Store({
   /**
    * If strict mode should be used
    */
-  strict: process.env.NODE_ENV !== 'production',
+  strict: debug,
 
   /**
    * Plugins for Vuex
    */
-  plugins: process.env.NODE_ENV !== 'production' ? [createLogger()] : [],
+  plugins: debug ? [createLogger()] : [],
 });
