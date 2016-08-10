@@ -8,7 +8,7 @@ const success = () => {
     type: 'success',
     message: 'The post has been created!',
   });
-  window.router.go({
+  window.router.push({
     name: 'post.index',
   });
 };

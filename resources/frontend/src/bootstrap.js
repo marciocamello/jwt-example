@@ -45,11 +45,11 @@ Vue.http.interceptors.push((request, next) => {
  * Vuex Router Sync
  * ============
  *
- * Effortlessly keep vue-Router and vuex Store in sync.
+ * Effortlessly keep vue-Router and vuex store in sync.
  */
 import VuexRouterSync from 'vuex-router-sync';
-import Store from './app/store';
-Store.commit('CHECK_AUTHENTICATION');
+import store from './app/store';
+store.dispatch('checkAuthentication');
 
 
 /* ============
@@ -63,33 +63,31 @@ import VueRouter from 'vue-router';
 import routes from './app/routes';
 Vue.use(VueRouter);
 
-const router = new VueRouter({
+export const router = new VueRouter({
   routes,
 });
 router.beforeEach((route, redirect, next) => {
-  /*
-   * If the user is not authenticated and goes to
-   * an authenticated page, redirect to the login page
-   */
-  if (route.matched.some(m => m.meta.auth) && !Store.state.auth.authenticated) {
+  if (route.matched.some(m => m.meta.auth) && !store.state.auth.authenticated) {
+    /*
+     * If the user is not authenticated and goes to
+     * an authenticated page, redirect to the login page
+     */
     redirect({
       name: 'login.index',
     });
-  }
-
-  /*
-   * If the user is authenticated and goes to
-   * an guest page, redirect to the dashboard page
-   */
-  if (route.matched.some(m => m.meta.guest) && Store.state.auth.authenticated) {
+  } else if (route.matched.some(m => m.meta.guest) && store.state.auth.authenticated) {
+    /*
+     * If the user is authenticated and goes to
+     * an guest page, redirect to the dashboard page
+     */
     redirect({
       name: 'account.show',
     });
+  } else {
+    next();
   }
-
-  next();
 });
-VuexRouterSync.sync(Store, router);
+VuexRouterSync.sync(store, router);
 
 window.router = router;
 
@@ -121,14 +119,3 @@ require('./assets/vendor/bootstrap/dist/js/bootstrap');
  * Require the application styling
  */
 require('./assets/stylus/app.styl');
-
-
-/* ============
- * Exports
- * ============
- *
- * Exports the router
- */
-export {
-  router,
-};

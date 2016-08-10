@@ -8,8 +8,8 @@
         <div class="row">
           <div class="col-md-3 pull-right">
             <alert
-              v-for="notification in $store.state.notifications"
-              :style="notification.type"
+              v-for="notification in $store.state.notification.all"
+              :contextualStyle="notification.type"
               :message="notification.message"
               :id="notification.id"
               :close-function="deleteNotification"
@@ -61,6 +61,12 @@
      */
     components: {
       alert: loader.component('alert'),
+    },
+
+    methods: {
+      deleteNotification(id) {
+        this.$store.dispatch('deleteNotification', id);
+      },
     },
   };
 </script>

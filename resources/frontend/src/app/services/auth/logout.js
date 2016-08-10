@@ -8,7 +8,7 @@ export default () => {
     type: 'success',
     message: 'Logout successful!',
   });
-  window.router.go({
+  window.router.push({
     name: 'login.index',
   });
 };

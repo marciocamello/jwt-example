@@ -15,7 +15,7 @@
       :class="{'active': index + 1 === pagination.currentPage}"
     >
       <a href="#"
-         @click.prevent="goToPage($index + 1)"
+         @click.prevent="goToPage(index + 1)"
       >{{index + 1}}</a>
     </li>
     <li

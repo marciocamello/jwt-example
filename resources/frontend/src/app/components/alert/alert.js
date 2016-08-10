@@ -5,12 +5,9 @@
 
 export default {
   props: {
-    style: {
+    contextualStyle: {
       type: String,
       required: false,
-      default() {
-        return 'primary';
-      },
     },
     message: {
       type: String,
@@ -41,13 +38,13 @@ export default {
     classNames() {
       const classNames = ['alert'];
 
-      classNames.push(`alert-${this.style}`);
+      classNames.push(`alert-${this.contextualStyle}`);
 
       return classNames;
     },
   },
 
-  ready() {
+  mounted() {
     this.startTimer();
   },
 };
