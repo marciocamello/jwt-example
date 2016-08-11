@@ -98,7 +98,7 @@ window.router = router;
  *
  * Require jQuery
  */
-import jQuery from './assets/vendor/jquery/dist/jquery';
+import jQuery from 'jquery';
 window.$ = window.jQuery = jQuery;
 
 
@@ -108,8 +108,8 @@ window.$ = window.jQuery = jQuery;
  *
  * Require bootstrap for the app
  */
-require('./assets/vendor/bootstrap/less/bootstrap.less');
-require('./assets/vendor/bootstrap/dist/js/bootstrap');
+require('bootstrap');
+require('bootstrap/less/bootstrap.less');
 
 
 /* ============
