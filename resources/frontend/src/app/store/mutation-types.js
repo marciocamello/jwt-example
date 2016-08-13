@@ -12,5 +12,7 @@ export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION';
 
 // Post
+export const ADD_POST = 'ADD_POST';
+export const REMOVE_POST = 'REMOVE_POST';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const CLEAR_POST = 'CLEAR_POST';

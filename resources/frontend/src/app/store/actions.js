@@ -32,6 +32,14 @@ export const deleteNotification = ({ commit }, notification) => {
 };
 
 // Post
+export const addPost = ({ commit }, post) => {
+  commit(types.ADD_POST, post);
+};
+
+export const removePost = ({ commit }, postId) => {
+  commit(types.REMOVE_POST, postId);
+};
+
 export const fetchPosts = ({ commit }, { posts, pagination }) => {
   commit(types.FETCH_POSTS, { posts, pagination });
 };

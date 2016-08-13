@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import allPosts from './all';
+// import allPosts from './all';
 import store from './../../store';
 
 const success = () => {
-  allPosts();
+  // allPosts();
   store.dispatch('addNotification', {
     type: 'success',
     message: 'The post has been deleted!',

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\PostHasBeenCreated;
+use App\Events\PostHasBeenDeleted;
 use App\Http\Controllers\API\Controller;
 use App\Http\Requests\API\Post\StoreRequest;
 use App\Post;
@@ -56,6 +58,8 @@ class PostController extends Controller
         $post->user()->associate($user);
         $post->save();
 
+        event(new PostHasBeenCreated($post));
+
         return $this->respondCreated('The post has been created');
     }
 
@@ -100,6 +104,8 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
+        event(new PostHasBeenDeleted($post->id));
 
         return $this->respondWithSuccess('The post has been deleted');
     }

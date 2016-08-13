@@ -28,10 +28,11 @@
    * The entry point of the application
    */
   import store from './store';
-  import { router } from './../bootstrap';
+  import { router, echo } from './../bootstrap';
   import loader from './utils/loader';
   import postService from './services/post';
   import accountService from './services/account';
+  import postTransformer from './transformers/post';
 
   export default {
     /**
@@ -53,6 +54,14 @@
       if (this.$store.state.auth.authenticated) {
         postService.all();
         accountService.find();
+
+        echo.channel('posts')
+          .listen('PostHasBeenCreated', event => {
+            store.dispatch('addPost', postTransformer.fetch(event.post));
+          })
+          .listen('PostHasBeenDeleted', event => {
+            store.dispatch('removePost', event.postId);
+          });
       }
     },
 

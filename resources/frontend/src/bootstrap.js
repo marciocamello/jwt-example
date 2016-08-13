@@ -104,6 +104,7 @@ export const echo = new Echo({
   broadcaster: 'pusher',
   key: process.env.PUSHER_KEY,
   cluster: process.env.PUSHER_CLUSTER,
+  authEndpoint: process.env.BROADCAST_ENDPOINT,
 });
 
 /* ============

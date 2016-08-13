@@ -7,6 +7,7 @@ import loader from './../../../utils/loader';
 import postService from './../../../services/post';
 import { mapGetters } from 'vuex';
 
+
 export default {
   computed: {
     ...mapGetters({
