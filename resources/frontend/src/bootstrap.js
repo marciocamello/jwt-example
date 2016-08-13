@@ -14,7 +14,7 @@
  * It provides data-reactive components with a simple and flexible API.
  */
 import Vue from 'vue';
-
+window.Vue = Vue;
 Vue.config.debug = process.env.NODE_ENV !== 'production';
 
 
@@ -91,6 +91,20 @@ VuexRouterSync.sync(store, router);
 
 window.router = router;
 
+
+/* ============
+ * Laravel Echo
+ * ============
+ *
+ * Require jQuery
+ */
+import Echo from 'laravel-echo';
+
+export const echo = new Echo({
+  broadcaster: 'pusher',
+  key: process.env.PUSHER_KEY,
+  cluster: process.env.PUSHER_CLUSTER,
+});
 
 /* ============
  * jQuery
