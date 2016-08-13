@@ -9,6 +9,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import createLogger from 'vuex/logger';
 import * as actions from './actions';
+import * as getters from './getters';
 import auth from './modules/auth';
 import account from './modules/account';
 import notification from './modules/notification';
@@ -23,6 +24,11 @@ export default new Vuex.Store({
    * Assign the actions to the store
    */
   actions,
+
+  /**
+   * Assign the getters to the store
+   */
+  getters,
 
   /**
    * Assign the modules to the store
