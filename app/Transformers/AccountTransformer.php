@@ -10,7 +10,7 @@ class AccountTransformer extends Transformer
         return [
             'id'    => (int) $user->id,
             'email' => $user->email,
-            'name'  => $user->name
+            'name'  => $user->name,
         ];
     }
 }

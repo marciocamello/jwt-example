@@ -2,24 +2,19 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| API Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
 Route::group([
     'middleware' => [
-        'api',
-        'cors',
         'jwt.auth'
-    ],
-    'as'         => 'api::',
-    'namespace'  => 'API\V1',
-    'prefix'     => 'api/v1'
+    ]
 ], function () {
 
     Route::group([
@@ -42,35 +37,19 @@ Route::group([
         ]);
 
         Route::post('', [
-            'as' => 'store',
+            'as'   => 'store',
             'uses' => 'PostController@store',
         ]);
 
         Route::delete('{post}', [
-            'as' => 'destroy',
+            'as'   => 'destroy',
             'uses' => 'PostController@destroy'
         ]);
     });
 
 });
 
-Route::group([
-    'middleware' => [
-        'api',
-        'cors'
-    ],
-    'as'         => 'api::',
-    'namespace'  => 'API\V1',
-    'prefix'     => 'api/v1'
-], function () {
-
-    Route::post('auth', [
-        'as'   => 'auth.store',
-        'uses' => 'AuthController@authenticate'
-    ]);
-
-});
-
-Route::get('/', function () {
-    return View::make('index');
-});
+Route::post('auth', [
+    'as'   => 'auth.store',
+    'uses' => 'AuthController@authenticate'
+]);

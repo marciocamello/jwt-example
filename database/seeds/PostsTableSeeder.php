@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
         $user = App\User::first();
 
         factory(App\Post::class)->make([
-            'title' => 'Test Post',
+            'title'   => 'Test Post',
             'content' => 'Lorem ipsum',
             'user_id' => $user->id
         ])->save();

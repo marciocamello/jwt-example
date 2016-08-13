@@ -6,6 +6,7 @@ use App\Http\Requests\API\Request;
 
 class StoreRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -16,6 +17,7 @@ class StoreRequest extends Request
         return true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +26,7 @@ class StoreRequest extends Request
     public function rules()
     {
         return [
-            'title'    => [
+            'title'   => [
                 'required'
             ],
             'content' => [

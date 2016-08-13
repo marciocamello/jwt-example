@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -12,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(App\User::class)->make([
-            'email' => 'test@test.com',
+            'email'    => 'test@test.com',
             'password' => bcrypt('Test@123')
         ])->save();
     }
