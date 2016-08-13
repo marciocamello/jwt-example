@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import store from './../../store';
 
 export default () => {
@@ -8,7 +9,7 @@ export default () => {
     type: 'success',
     message: 'Logout successful!',
   });
-  window.router.push({
+  Vue.router.push({
     name: 'login.index',
   });
 };

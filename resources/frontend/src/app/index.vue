@@ -27,8 +27,9 @@
    *
    * The entry point of the application
    */
+  import Vue from 'vue';
   import store from './store';
-  import { router, echo } from './../bootstrap';
+  import { router } from './../bootstrap';
   import loader from './utils/loader';
   import postService from './services/post';
   import accountService from './services/account';
@@ -55,7 +56,7 @@
         postService.all();
         accountService.find();
 
-        echo.channel('posts')
+        Vue.echo.channel('posts')
           .listen('PostHasBeenCreated', event => {
             store.dispatch('addPost', postTransformer.fetch(event.post));
           })

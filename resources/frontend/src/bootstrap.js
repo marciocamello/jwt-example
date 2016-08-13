@@ -42,6 +42,27 @@ Vue.http.interceptors.push((request, next) => {
 
 
 /* ============
+ * Laravel Echo
+ * ============
+ *
+ * Require laravel-echo
+ */
+import Echo from 'laravel-echo';
+
+Vue.echo = new Echo({
+  broadcaster: 'pusher',
+  key: process.env.PUSHER_KEY,
+  auth: {
+    headers: {
+      Authorization: null,
+    },
+  },
+  cluster: process.env.PUSHER_CLUSTER,
+  authEndpoint: process.env.BROADCAST_ENDPOINT,
+});
+
+
+/* ============
  * Vuex Router Sync
  * ============
  *
@@ -89,28 +110,8 @@ router.beforeEach((route, redirect, next) => {
 });
 VuexRouterSync.sync(store, router);
 
-window.router = router;
+Vue.router = router;
 
-
-/* ============
- * Laravel Echo
- * ============
- *
- * Require jQuery
- */
-import Echo from 'laravel-echo';
-
-export const echo = new Echo({
-  broadcaster: 'pusher',
-  key: process.env.PUSHER_KEY,
-  auth: {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('id_token')}`,
-    },
-  },
-  cluster: process.env.PUSHER_CLUSTER,
-  authEndpoint: process.env.BROADCAST_ENDPOINT,
-});
 
 /* ============
  * jQuery

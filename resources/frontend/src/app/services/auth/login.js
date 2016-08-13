@@ -11,7 +11,7 @@ const success = ({ data }) => {
     type: 'success',
     message: 'Login successful!',
   });
-  window.router.push({
+  Vue.router.push({
     name: 'post.index',
   });
 };

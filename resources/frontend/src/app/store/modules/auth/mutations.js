@@ -9,19 +9,26 @@ export const mutations = {
   [CHECK_AUTHENTICATION](state) {
     state.authenticated = !!localStorage.getItem('id_token');
     if (state.authenticated) {
-      Vue.http.headers.common.Authorization = `Bearer ${localStorage.getItem('id_token')}`;
+      const bearer = `Bearer ${localStorage.getItem('id_token')}`;
+
+      Vue.echo.options.auth.headers.Authorization = bearer;
+      Vue.http.headers.common.Authorization = bearer;
     }
   },
 
   [LOGIN](state, token) {
+    const bearer = `Bearer ${token}`;
+
     state.authenticated = true;
     localStorage.setItem('id_token', token);
-    Vue.http.headers.common.Authorization = `Bearer ${token}`;
+    Vue.echo.options.auth.headers.Authorization = bearer;
+    Vue.http.headers.common.Authorization = bearer;
   },
 
   [LOGOUT](state) {
     state.authenticated = false;
     localStorage.removeItem('id_token');
+    Vue.echo.options.auth.headers.Authorization = null;
     Vue.http.headers.common.Authorization = null;
   },
 };
