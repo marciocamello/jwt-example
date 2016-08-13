@@ -1,4 +1,5 @@
 <v-layout>
+  People viewing: <span v-for="(user, index) in users"><span v-if="ampersandHelper(index)"> & </span><span v-if="commaHelper(index)">, </span>{{ user.name }}</span>
   <div class="pull-right">
     <router-link
       :to="{ name: 'post.create' }"

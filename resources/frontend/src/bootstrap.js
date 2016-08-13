@@ -54,7 +54,7 @@ Vue.echo = new Echo({
   key: process.env.PUSHER_KEY,
   auth: {
     headers: {
-      Authorization: null,
+      Authorization: `Bearer ${localStorage.getItem('id_token')}`,
     },
   },
   cluster: process.env.PUSHER_CLUSTER,

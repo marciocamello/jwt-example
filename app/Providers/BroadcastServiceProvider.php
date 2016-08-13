@@ -16,10 +16,10 @@ class BroadcastServiceProvider extends ServiceProvider
     public function boot()
     {
         Broadcast::routes([
-                'middleware' => [
-                    'api',
-                    'jwt.auth',
-                ]
+            'middleware' => [
+                'api',
+                'jwt.auth',
+            ]
         ]);
 
         /*
@@ -27,6 +27,14 @@ class BroadcastServiceProvider extends ServiceProvider
          */
         Broadcast::channel('App.User.*', function ($user, $userId) {
             return (int) $user->id === (int) $userId;
+        });
+
+        Broadcast::channel('posts', function ($user) {
+            return isset( $user );
+        });
+
+        Broadcast::channel('posts-presence', function ($user) {
+            return ['id' => $user->id, 'name' => $user->name];
         });
     }
 }

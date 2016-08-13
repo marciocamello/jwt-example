@@ -56,7 +56,7 @@
         postService.all();
         accountService.find();
 
-        Vue.echo.channel('posts')
+        Vue.echo.private('posts')
           .listen('PostHasBeenCreated', event => {
             store.dispatch('addPost', postTransformer.fetch(event.post));
           })
