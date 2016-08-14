@@ -6,7 +6,7 @@
 import loader from './../../../utils/loader';
 import postService from './../../../services/post';
 import { mapGetters } from 'vuex';
-
+import Vue from 'vue';
 
 export default {
   data() {
